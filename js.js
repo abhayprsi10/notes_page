@@ -68,7 +68,8 @@ function addnotes() {
         title: addtitle.value,
         text: addtext.value,
         time: ptme.innerHTML,
-        date: pdated.innerHTML
+        date: pdated.innerHTML,
+        fav: 'grey'
     }
 
     addtitle.value = '';
@@ -101,7 +102,7 @@ function shownotes() {
 
         noteshtml += ` <div class="note">
                             <i class="fa-solid fa-delete-left deletebtn"  id=${i} onClick="deletenote(${i})"></i>
-                            <i class="fa-solid fa-heart"  onClick="fav(this,${i})"></i>
+                            <i class="fa-solid fa-heart " style="color:${notes[i].fav}"  onClick="fav(this,${i})"></i>
                             <div class="title">${notes[i].title === "" ? "Note" : notes[i].title}</div>
                             <div class="text">${notes[i].text}</div> 
                             <p class="time">${notes[i].time}</p>
@@ -133,13 +134,27 @@ function deletenote(index) {
 }
 
 function fav(e, ind) {
+    notes = localStorage.getItem('notes');
+    if (notes === null) {
+        return;
+    }
+    else {
+        notes = JSON.parse(notes);
+    }
+
+
     let curcol = e.style.color;
+
     if (curcol == 'orange') {
         e.style.color = 'grey';
+        notes[ind].fav = 'grey';
     }
     else {
         e.style.color = 'orange';
+        notes[ind].fav = 'orange';
     }
 
+    localStorage.setItem('notes', JSON.stringify(notes));
+    shownotes();
 
 }
