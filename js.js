@@ -145,13 +145,13 @@ function fav(e, ind) {
 
     let curcol = e.style.color;
 
-    if (curcol == 'orange') {
+    if (curcol == 'red') {
         e.style.color = 'grey';
         notes[ind].fav = 'grey';
     }
     else {
-        e.style.color = 'orange';
-        notes[ind].fav = 'orange';
+        e.style.color = 'red';
+        notes[ind].fav = 'red';
     }
 
     localStorage.setItem('notes', JSON.stringify(notes));
